@@ -84,9 +84,13 @@
         </div>
     </div>
 
-    <!-- The 'esm.sh/run' script handles transpiling index.tsx so the browser can understand it -->
+    <!-- 
+      FIX: Change 'type="module"' to 'type="text/tsx"'.
+      Browsers block .tsx files served as 'application/octet-stream' when requested as modules.
+      By using 'text/tsx', we bypass the block and let esm.sh/run fetch and transpile it.
+    -->
+    <script type="text/tsx" src="index.tsx"></script>
     <script type="module" src="https://esm.sh/run"></script>
-    <script type="module" src="index.tsx"></script>
 
     <script>
         // Reveal animations logic
