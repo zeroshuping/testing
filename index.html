@@ -75,6 +75,7 @@
     <script src="https://esm.sh/run" type="module"></script>
 
     <script>
+        // Reveal animations logic
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -90,6 +91,15 @@
             };
             setInterval(observe, 1000);
         });
+
+        // Error handling to detect if React fails to load
+        window.onerror = function(msg, url, line, col, error) {
+            console.error("Critical Error Detected:", msg, error);
+            const root = document.getElementById('root');
+            if (root && root.innerText.includes('Initializing')) {
+                root.innerHTML = `<div class="p-8 text-center text-red-500 font-bold">Failed to load application. Please check your internet connection or console logs.</div>`;
+            }
+        };
     </script>
 <script type="module" src="/index.tsx"></script>
 </body>
