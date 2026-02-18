@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './App.tsx';
 
-console.log("System: Bridge established. Initiating React Mount Sequence...");
+console.log("System: Initialization verified. Mounting UI...");
 
 const container = document.getElementById('root');
 
@@ -14,10 +14,10 @@ if (container) {
         <App />
       </React.StrictMode>
     );
-    console.log("System: Success. Application active.");
+    console.log("System: App successfully mounted.");
   } catch (error) {
-    console.error("System: Mount Exception:", error);
+    console.error("System: Critical mounting error:", error);
   }
 } else {
-  console.error("System: Root element not found.");
+  console.error("System Failure: Root container 'root' missing from DOM.");
 }
