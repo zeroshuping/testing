@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIN SHUPING | Shuping. Shopping. Shipping.</title>
     
-    <!-- Dynamic Base Path Detection for GitHub Pages Subdirectories -->
-    <script>
-      (function() {
-        const path = window.location.pathname;
-        const directory = path.substring(0, path.lastIndexOf('/') + 1);
-        const base = document.createElement('base');
-        base.href = directory;
-        document.head.appendChild(base);
-      })();
-    </script>
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6T75RQB88"></script>
     <script>
@@ -67,8 +56,8 @@
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
     "lucide-react": "https://esm.sh/lucide-react@0.475.0?bundle&deps=react@19.0.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/"
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
 </script>
@@ -85,11 +74,29 @@
     </div>
 
     <!-- 
-      FIX: Change 'type="module"' to 'type="text/tsx"'.
-      Browsers block .tsx files served as 'application/octet-stream' when requested as modules.
-      By using 'text/tsx', we bypass the block and let esm.sh/run fetch and transpile it.
+      ENTRY POINT: Inlined to prevent 404/MIME errors.
+      The browser treats 'text/tsx' as a plain data block, and esm.sh/run
+      will find it, transpile it, and execute the React mount.
     -->
-    <script type="text/tsx" src="index.tsx"></script>
+    <script type="text/tsx">
+      import React from 'react';
+      import { createRoot } from 'react-dom/client';
+      import App from './App.tsx';
+
+      console.log("System: Initialization verified. Mounting UI...");
+      const container = document.getElementById('root');
+      if (container) {
+        try {
+          const root = createRoot(container);
+          root.render(<React.StrictMode><App /></React.StrictMode>);
+          console.log("System: App successfully mounted.");
+        } catch (e) {
+          console.error("System Error during mount:", e);
+        }
+      }
+    </script>
+    
+    <!-- The actual transpiler/runner -->
     <script type="module" src="https://esm.sh/run"></script>
 
     <script>
