@@ -71,16 +71,19 @@
         </div>
     </div>
 
-    <!-- Diagnostic Script: If the app doesn't clear the loading state, show the error -->
-    <script type="module">
-        window.addEventListener('error', (event) => {
+    <!-- Professional Diagnostic Overlay -->
+    <script>
+        window.addEventListener('error', function(e) {
             const loader = document.getElementById('loading-state');
             if (loader) {
                 loader.innerHTML = `
-                    <div class="p-6 bg-red-50 border border-red-200 rounded-2xl max-w-md">
-                        <h3 class="text-red-800 font-bold mb-2">Initialization Error</h3>
-                        <p class="text-red-600 text-sm mb-4">${event.message}</p>
-                        <button onclick="location.reload()" class="text-xs font-bold uppercase tracking-widest bg-red-800 text-white px-4 py-2 rounded-full">Retry System</button>
+                    <div class="p-8 bg-white rounded-3xl shadow-2xl border border-red-100 max-w-md text-center">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        </div>
+                        <h3 class="text-zinc-900 font-black uppercase tracking-widest text-sm mb-2">Launch Sequence Interrupted</h3>
+                        <p class="text-zinc-500 text-xs mb-6 leading-relaxed">${e.message || 'Check browser console for module resolution details.'}</p>
+                        <button onclick="location.reload()" class="bg-zinc-900 text-white px-6 py-2 rounded-full text-[10px] font-black tracking-widest hover:bg-amber-600 transition-colors">RETRY INITIALIZATION</button>
                     </div>
                 `;
             }
@@ -90,6 +93,7 @@
     <script src="https://esm.sh/run" type="module"></script>
 
     <script>
+        // Reveal animations logic
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {

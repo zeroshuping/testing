@@ -2,15 +2,22 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
+console.log("System: Initialization verified. Mounting React...");
+
 const container = document.getElementById('root');
 
 if (container) {
-  const root = createRoot(container);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  try {
+    const root = createRoot(container);
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+    console.log("System: App successfully mounted.");
+  } catch (error) {
+    console.error("System: Critical mounting error:", error);
+  }
 } else {
-  console.error("Target container 'root' not found in the DOM.");
+  console.error("System Failure: Root container 'root' missing from DOM.");
 }
