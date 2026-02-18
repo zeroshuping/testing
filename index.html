@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIN SHUPING | Shuping. Shopping. Shipping.</title>
     
+    <!-- Fix for GitHub Pages subdirectories: ensures relative paths work correctly -->
+    <base href="./">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6T75RQB88"></script>
     <script>
@@ -16,6 +19,8 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -47,18 +52,19 @@
             box-shadow: 0 20px 50px -20px rgba(0,0,0,0.1);
         }
     </style>
+
     <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@19.0.0",
-        "react/": "https://esm.sh/react@19.0.0/",
-        "react-dom": "https://esm.sh/react-dom@19.0.0",
-        "react-dom/": "https://esm.sh/react-dom@19.0.0/",
-        "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-        "lucide-react": "https://esm.sh/lucide-react@0.475.0?bundle&deps=react@19.0.0"
-      }
-    }
-    </script>
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.475.0?bundle&deps=react@19.0.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
@@ -71,31 +77,11 @@
         </div>
     </div>
 
-    <!-- Diagnostic Script -->
-    <script>
-        window.addEventListener('error', function(e) {
-            console.error("Critical Launch Error:", e);
-            const loader = document.getElementById('loading-state');
-            if (loader) {
-                loader.innerHTML = `
-                    <div class="p-8 bg-white rounded-3xl shadow-2xl border border-red-100 max-w-md text-center">
-                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                        </div>
-                        <h3 class="text-zinc-900 font-black uppercase tracking-widest text-sm mb-2">Module Load Failed</h3>
-                        <p class="text-zinc-500 text-[10px] mb-6 leading-relaxed">Ensure all files (index.tsx, App.tsx) are in the same folder as index.html.<br><br>${e.message || 'Check dev console for details.'}</p>
-                        <button onclick="location.reload()" class="bg-zinc-900 text-white px-6 py-2 rounded-full text-[10px] font-black tracking-widest hover:bg-amber-600 transition-colors">RETRY LAUNCH</button>
-                    </div>
-                `;
-            }
-        });
-    </script>
-
-    <!-- Correct relative path loading for GitHub Pages -->
-    <script src="https://esm.sh/run" type="module"></script>
-    <script type="module" src="./index.tsx"></script>
+    <!-- Main Entry Point -->
+    <script type="module" src="index.tsx"></script>
 
     <script>
+        // Reveal animations logic
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
