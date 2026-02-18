@@ -65,13 +65,13 @@
     <div id="root">
         <div class="flex items-center justify-center min-h-screen">
             <div class="flex flex-col items-center">
-                <div class="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <div class="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
                 <div class="text-zinc-400 font-black tracking-widest text-[10px] uppercase">System Initializing...</div>
             </div>
         </div>
     </div>
 
-    <!-- The 'run' script automatically transpiles index.tsx and App.tsx in the browser -->
+    <!-- This loader handles .tsx files in the browser. It automatically looks for index.tsx -->
     <script src="https://esm.sh/run" type="module"></script>
 
     <script>
@@ -88,7 +88,6 @@
                     observer.observe(el);
                 });
             };
-            // Periodically check for new React elements to animate as the page renders
             setInterval(observe, 1000);
         });
     </script>
