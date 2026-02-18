@@ -64,18 +64,32 @@
 <body>
     <div id="root">
         <div class="flex items-center justify-center min-h-screen">
-            <div class="flex flex-col items-center">
+            <div id="loading-state" class="flex flex-col items-center">
                 <div class="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
                 <div class="text-zinc-400 font-black tracking-widest text-[10px] uppercase">System Initializing...</div>
             </div>
         </div>
     </div>
 
-    <!-- The 'run' script automatically transpiles index.tsx and App.tsx in the browser -->
+    <!-- Diagnostic Script: If the app doesn't clear the loading state, show the error -->
+    <script type="module">
+        window.addEventListener('error', (event) => {
+            const loader = document.getElementById('loading-state');
+            if (loader) {
+                loader.innerHTML = `
+                    <div class="p-6 bg-red-50 border border-red-200 rounded-2xl max-w-md">
+                        <h3 class="text-red-800 font-bold mb-2">Initialization Error</h3>
+                        <p class="text-red-600 text-sm mb-4">${event.message}</p>
+                        <button onclick="location.reload()" class="text-xs font-bold uppercase tracking-widest bg-red-800 text-white px-4 py-2 rounded-full">Retry System</button>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
     <script src="https://esm.sh/run" type="module"></script>
 
     <script>
-        // Reveal animations logic
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -91,15 +105,6 @@
             };
             setInterval(observe, 1000);
         });
-
-        // Error handling to detect if React fails to load
-        window.onerror = function(msg, url, line, col, error) {
-            console.error("Critical Error Detected:", msg, error);
-            const root = document.getElementById('root');
-            if (root && root.innerText.includes('Initializing')) {
-                root.innerHTML = `<div class="p-8 text-center text-red-500 font-bold">Failed to load application. Please check your internet connection or console logs.</div>`;
-            }
-        };
     </script>
 <script type="module" src="/index.tsx"></script>
 </body>
